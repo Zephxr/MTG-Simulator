@@ -1,0 +1,286 @@
+<Window x:Class="MTGSimulator.Settings.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" 
+        Width="550" Height="650"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <Border Grid.Row="0" Background="#2D2D30" Padding="15,10">
+            <TextBlock Text="MTG Simulator Settings" 
+                       FontSize="20" FontWeight="Bold" 
+                       Foreground="White"/>
+        </Border>
+
+        <!-- Tab Menu -->
+        <TabControl Grid.Row="1" x:Name="SettingsTabControl" Margin="0">
+            <!-- Display Tab -->
+            <TabItem Header="Display">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+                    <StackPanel>
+                        <GroupBox Header="Display Options" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <CheckBox x:Name="StartMaximizedCheckBox" 
+                                          Content="Start Maximized" 
+                                          Margin="0,5"/>
+                                <CheckBox x:Name="ShowFpsCounterCheckBox" 
+                                          Content="Show FPS Counter" 
+                                          Margin="0,5"/>
+                                <CheckBox x:Name="ShowSelectionCountCheckBox" 
+                                          Content="Show Selection Count" 
+                                          Margin="0,5"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Card Size Tab -->
+            <TabItem Header="Card Size">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+                    <StackPanel>
+                        <GroupBox Header="Card Dimensions" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Card Width:" Width="120" VerticalAlignment="Center"/>
+                                    <Slider x:Name="CardWidthSlider" 
+                                            Minimum="80" Maximum="200" 
+                                            TickFrequency="10" IsSnapToTickEnabled="True"
+                                            Width="200" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="CardWidthValue" 
+                                               Text="120" 
+                                               Width="50" 
+                                               Margin="10,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Card Height:" Width="120" VerticalAlignment="Center"/>
+                                    <Slider x:Name="CardHeightSlider" 
+                                            Minimum="112" Maximum="280" 
+                                            TickFrequency="14" IsSnapToTickEnabled="True"
+                                            Width="200" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="CardHeightValue" 
+                                               Text="168" 
+                                               Width="50" 
+                                               Margin="10,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Keybinds Tab -->
+            <TabItem Header="Keybinds">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+                    <StackPanel>
+                        <GroupBox Header="Keyboard Shortcuts" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <TextBlock Text="Configure keyboard shortcuts for game actions. Click in a field and press the key combination you want to use." 
+                                           FontSize="10" 
+                                           Foreground="Gray" 
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,15"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Draw Card:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="DrawCardKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Tap/Untap Selected:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="TapCardKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Show/Hide Hand:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="ShowHandKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Show/Hide Card Info:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="ShowCardInfoKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Shuffle Library:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="ShuffleKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                
+                                <Separator Margin="0,10,0,5"/>
+                                <TextBlock Text="Counter Keybinds" 
+                                           FontWeight="Bold" 
+                                           FontSize="12" 
+                                           Margin="0,5,0,10"
+                                           Foreground="#2D2D30"/>
+                                
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Add +1/+1:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="AddPlusOnePlusOneKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Remove +1/+1:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="RemovePlusOnePlusOneKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Add Other:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="AddOtherCounterKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Remove Other:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="RemoveOtherCounterKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Add Loyalty:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="AddLoyaltyKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Remove Loyalty:" Width="150" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="RemoveLoyaltyKeyTextBox" 
+                                             Width="200" 
+                                             VerticalAlignment="Center"
+                                             PreviewKeyDown="KeyTextBox_PreviewKeyDown"
+                                             ToolTip="Press the key combination you want to use"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Image Cache Tab -->
+            <TabItem Header="Image Cache">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+                    <StackPanel>
+                        <GroupBox Header="Image Caching" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Max Cached Images:" Width="150" VerticalAlignment="Center"/>
+                                    <Slider x:Name="MaxCachedImagesSlider" 
+                                            Minimum="100" Maximum="5000" 
+                                            TickFrequency="100" IsSnapToTickEnabled="True"
+                                            Width="250" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="MaxCachedImagesValue" 
+                                               Text="1000" 
+                                               Width="80" 
+                                               Margin="10,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Text="Maximum number of card images to cache locally. Older images will be removed when limit is reached." 
+                                           FontSize="10" 
+                                           Foreground="Gray" 
+                                           TextWrapping="Wrap"
+                                           Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Bulk Data Tab -->
+            <TabItem Header="Bulk Data">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+                    <StackPanel>
+                        <GroupBox Header="Card Database" Margin="0,0,0,15">
+                            <StackPanel Margin="10">
+                                <TextBlock Text="The card database contains all Magic: The Gathering card information for fast searching." 
+                                           FontSize="10" 
+                                           Foreground="Gray" 
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,15"/>
+                                
+                                <StackPanel Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Data Directory:" Width="120" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="BulkDataDirectoryTextBox" 
+                                             Width="250" 
+                                             VerticalAlignment="Center"
+                                             IsReadOnly="True"
+                                             Margin="0,0,10,0"/>
+                                    <Button Content="Browse..." 
+                                            Width="80" 
+                                            Height="25" 
+                                            VerticalAlignment="Center"
+                                            Click="BrowseBulkDataDirectory_Click"/>
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock x:Name="BulkDataStatusText" 
+                                               Text="Status: Not loaded" 
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,10,0"/>
+                                    <Button x:Name="UpdateBulkDataButton" 
+                                            Content="Update to Latest" 
+                                            Width="120" 
+                                            Height="30"
+                                            Click="UpdateBulkDataButton_Click"
+                                            IsEnabled="False"/>
+                                </StackPanel>
+                                
+                                <TextBlock x:Name="BulkDataInfoText" 
+                                           Text="" 
+                                           FontSize="9" 
+                                           Foreground="Gray" 
+                                           TextWrapping="Wrap"
+                                           Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <!-- Buttons -->
+        <Border Grid.Row="2" Background="#F0F0F0" Padding="15,10" BorderBrush="#D0D0D0" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="OK" Width="80" Height="30" 
+                        Margin="0,0,10,0" Click="OK_Click"/>
+                <Button Content="Cancel" Width="80" Height="30" 
+                        Click="Cancel_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
+

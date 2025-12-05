@@ -1,0 +1,63 @@
+<Window x:Class="MTGSimulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MTG Simulator - SpellTable" 
+        Width="1280" Height="720"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Focusable="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Top Menu Bar -->
+        <Menu Grid.Row="0" Background="#2D2D30" Foreground="White">
+            <MenuItem Header="File" Foreground="White">
+                <MenuItem Header="New Game" Click="NewGame_Click" Foreground="Black"/>
+                <MenuItem Header="Import Deck..." Click="ImportDeck_Click" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="Exit" Click="Exit_Click" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="View" Foreground="White">
+                <MenuItem x:Name="ToggleHandMenuItem" Header="Show Hand" Click="ToggleHand_Click" Foreground="Black"/>
+                <MenuItem x:Name="ToggleCardInfoMenuItem" Header="Show Card Info" Click="ToggleCardInfo_Click" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="Settings" Foreground="White">
+                <MenuItem Header="Settings..." Click="Settings_Click" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="Help" Foreground="White">
+                <MenuItem Header="About" Click="About_Click" Foreground="Black"/>
+            </MenuItem>
+        </Menu>
+        
+        <!-- Main Game Area -->
+        <Border Grid.Row="1" Background="#1E1E1E" BorderBrush="#3F3F46" BorderThickness="1">
+            <Canvas x:Name="GameCanvas" Background="#0F0F0F">
+                <!-- Game board will be rendered here -->
+            </Canvas>
+        </Border>
+        
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="2" Background="#2D2D30" Foreground="White">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="Ready" />
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="DeckCountText" Text="Deck: --" />
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="HandCountText" Text="Hand: --" />
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="FpsText" Text="FPS: --" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
+

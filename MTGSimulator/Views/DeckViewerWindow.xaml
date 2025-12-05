@@ -1,0 +1,67 @@
+<Window x:Class="MTGSimulator.Views.DeckViewerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Deck Viewer" 
+        Width="800" Height="600"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <StackPanel Grid.Row="0" 
+                    Orientation="Horizontal" 
+                    Background="#2D2D30"
+                    Margin="10">
+            <Button x:Name="LoadDeckButton"
+                    Content="Load Deck..."
+                    Click="LoadDeckButton_Click"
+                    Margin="0,0,10,0"
+                    MinWidth="100"
+                    MinHeight="30"/>
+            <TextBlock x:Name="DeckNameText"
+                       Text="No deck loaded"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Margin="10,0,0,0"/>
+        </StackPanel>
+        
+        <!-- Deck List -->
+        <DataGrid x:Name="DeckDataGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  GridLinesVisibility="All"
+                  HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="80"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="150"/>
+                <DataGridTextColumn Header="Mana Cost" Binding="{Binding ManaCost}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <!-- Footer -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    Background="#2D2D30"
+                    Margin="10"
+                    HorizontalAlignment="Right">
+            <TextBlock x:Name="CardCountText"
+                       Text="0 cards"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0"/>
+            <Button Content="Close"
+                    Click="CloseButton_Click"
+                    MinWidth="80"
+                    MinHeight="30"/>
+        </StackPanel>
+    </Grid>
+</Window>
+
